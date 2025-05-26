@@ -1,31 +1,153 @@
-```
-Projekt 3 dotyczy wybranego przez studentkę/studenta problemu z zakresu tematyki wykładu.
-Należy wybrać zagadnienie, omówić je i przedstawić rozwiązanie problemu za pomocą
-programu w C/C++/Python. Przykładowe tematy są w dołączonym pliku:
-Projekt składa się z dokumentacji i plików z programem.
-Dokumentacja projektu (plik w formacie pdf) musi zawierać następujące elementy:
-- Opis problemu
-- Omówienie różnych metod rozwiązania problemu (jeśli istnieją)
-- Przykłady zastosowania
-- Opis zastosowanych algorytmów
-- Ilustracja działania programu
-Istnieje możliwość wspólnej realizacji projektu przez 2-3 osoby. W takim przypadku grupa oddaje
-jedno wspólne sprawozdanie, w którym zaznaczone zostanie jaki był podział zadań zarówno
-implementacyjnych, jak i opisowych.
-```
-
 # Opis problemu
 
 Temat: **Problem najkrótszej ścieżki (z jednego miejsca)**
+
+Problem najkrótszej ścieżki z pojedynczego źródła (Single-Source Shortest Path - SSSP) polega na znalezieniu najkrótszych ścieżek z wybranego wierzchołka źródłowego do wszystkich pozostałych wierzchołków w grafie ważonym. Wagi krawędzi reprezentują odległości, koszty, czas lub inne metryki, które chcemy zminimalizować.
+
+W kontekście grafu ważonego G = (V, E), gdzie:
+
+- V to zbiór wierzchołków
+- E to zbiór krawędzi
+- Każda krawędź e ∈ E ma przypisaną wagę w(e)
+
+Celem jest znalezienie najkrótszej ścieżki p(s,v) dla każdego wierzchołka v ∈ V, gdzie s jest wierzchołkiem źródłowym. Ścieżka p(s,v) jest sekwencją krawędzi prowadzących od s do v o minimalnej sumie wag.
 
 # Omówienie różnych metod rozwiązania problemu
 
 ## Algorytm Dijkstry
 
+Algorytm Dijkstry jest efektywną metodą znajdowania najkrótszych ścieżek w grafach z nieujemnymi wagami krawędzi. Jego główne cechy:
+
+- Złożoność czasowa: O((V + E) log V) przy użyciu kolejki priorytetowej
+- Wymaga, aby wszystkie wagi były nieujemne
+- Wykorzystuje strategię zachłanną
+- Gwarantuje znalezienie optymalnego rozwiązania dla grafów z nieujemnymi wagami
+
+Algorytm działa poprzez iteracyjne wybieranie wierzchołka o najmniejszej tymczasowej odległości i relaksację jego krawędzi wychodzących.
+
 ## Algorytm Bellmana-Forda
+
+Algorytm Bellmana-Forda jest alternatywną metodą, która może pracować z ujemnymi wagami krawędzi:
+
+- Złożoność czasowa: O(V × E)
+- Może obsługiwać ujemne wagi krawędzi
+- Wykrywa ujemne cykle w grafie
+- Wolniejszy od algorytmu Dijkstry, ale bardziej uniwersalny
+
+Algorytm wykonuje V-1 iteracji relaksacji wszystkich krawędzi, a następnie sprawdza występowanie ujemnych cykli.
 
 # Przykłady zastosowania
 
+Problem najkrótszej ścieżki ma wiele praktycznych zastosowań:
+
+1. Systemy nawigacji GPS
+
+   - Znajdowanie najkrótszej/najszybszej trasy między lokalizacjami
+   - Optymalizacja tras w czasie rzeczywistym
+
+2. Sieci komputerowe
+
+   - Routing pakietów w sieciach
+   - Optymalizacja opóźnień w komunikacji
+
+3. Logistyka i transport
+
+   - Planowanie tras dostaw
+   - Optymalizacja kosztów transportu
+
+4. Media społecznościowe
+
+   - Znajdowanie połączeń między użytkownikami
+   - Analiza sieci społecznych
+
+5. Gry komputerowe
+   - Pathfinding dla postaci
+   - Sztuczna inteligencja NPC
+
 # Opis zastosowanych algorytmów
 
+Implementacja zawiera dwa główne algorytmy:
+
+1. Dijkstra:
+
+```
+Algorithm Dijkstra(Graph, start):
+    distances ← map of all vertices initialized to infinity
+    distances[start] ← 0
+    predecessors ← map of all vertices initialized to null
+    PriorityQueue queue ← empty priority queue
+    queue.insert((0, start))
+    visited ← empty set
+
+    while queue is not empty:
+        (current_distance, current_vertex) ← queue.removeMin()
+        if current_vertex in visited:
+            continue
+        visited.add(current_vertex)
+
+        for each (neighbor, weight) in Graph.neighbors(current_vertex):
+            distance ← current_distance + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] ← distance
+                predecessors[neighbor] ← current_vertex
+                queue.insert((distance, neighbor))
+
+    return (distances, predecessors)
+```
+
+2. Bellman-Ford:
+
+```
+Algorithm BellmanFord(Graph, start):
+    distances ← map of all vertices initialized to infinity
+    distances[start] ← 0
+    predecessors ← map of all vertices initialized to null
+
+    for i from 1 to |V| - 1:
+        for each vertex in Graph.vertices:
+            for each (neighbor, weight) in Graph.neighbors(vertex):
+                if distances[vertex] + weight < distances[neighbor]:
+                    distances[neighbor] ← distances[vertex] + weight
+                    predecessors[neighbor] ← vertex
+
+    for each vertex in Graph.vertices:
+        for each (neighbor, weight) in Graph.neighbors(vertex):
+            if distances[vertex] + weight < distances[neighbor]:
+                return (distances, predecessors, false)
+
+    return (distances, predecessors, true)
+```
+
 # Ilustracja działania programu
+
+Program demonstruje działanie obu algorytmów na dwóch różnych przykładach:
+
+1. Graf z wagami nieujemnymi (Dijkstra):
+
+![Graf dla algorytmu Dijkstry](dijkstra_graph.png)
+
+Wynik dla ścieżki 0 -> 4:
+
+- Najkrótsza ścieżka: 0 -> 2 -> 4
+- Całkowita odległość: 3
+
+2. Graf z wagami ujemnymi (Bellman-Ford):
+
+![Graf dla algorytmu Bellmana-Forda](bellman_ford_graph.png)
+
+Wynik dla ścieżki 0 -> 4
+
+- Najkrótsza ścieżka: 0 -> 1 -> 4
+- Całkowita odległość: 1
+
+Wynik pokazuje zdolność algorytmu Bellmana-Forda do pracy z ujemnymi wagami i wykrywania ujemnych cykli.
+
+# Podział zadań
+
+- **Szymon Rafałowski**:
+  - Implementacja algorytmu Dijkstry
+  - Implementacja algorytmu Bellmana-Forda
+  - Implementacja przykładów grafów
+  - Implementacja dokumentacji
+- **Aleks Rogoziński**:
+  - Dodaj tutaj
