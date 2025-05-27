@@ -4,14 +4,14 @@ from graph_examples import create_dijkstra_example, create_bellman_ford_example
 
 
 def print_result(algorithm_name: str, distances: dict, predecessors: dict, start: int, target: int):
-    print(f'\n{algorithm_name} Results:')
-    print(f'Distance to vertex {target}: {distances[target]}')
+    print(f'\n{algorithm_name} Wyniki:')
+    print(f'Dystans do wierzchołka {target}: {distances[target]}')
     path = get_path(predecessors, target)
-    print(f'Path to vertex {target}: {" -> ".join(map(str, path))}')
+    print(f'Ścieżka do wierzchołka {target}: {" -> ".join(map(str, path))}')
 
 
 def main():
-    print("Example 1: Simple graph (Dijkstra's Algorithm)")
+    print("Przykład pierwszy: Prosty graf (Algorytm Dijkstry)")
     graph1 = create_dijkstra_example()
     start_vertex = 0
     target_vertex = 4
@@ -21,7 +21,7 @@ def main():
     print(predecessors)
     print_result('Dijkstra', distances, predecessors, start_vertex, target_vertex)
 
-    print('\nExample 2: Graph with negative weights (Bellman-Ford Algorithm)')
+    print('\nPrzykład drugi: Graf z ujemnymi wagami (Algorytm Bellmana-Forda)')
     graph2 = create_bellman_ford_example()
 
     distances, predecessors, no_negative_cycle = bellman_ford(graph2, start_vertex)
@@ -29,9 +29,8 @@ def main():
     if no_negative_cycle:
         print_result('Bellman-Ford', distances, predecessors, start_vertex, target_vertex)
     else:
-        print('Negative cycle detected!')
+        print('Ujemny cykl')
 
-    print('\nGenerating graph visualizations...')
 
     visualize()
 

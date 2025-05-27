@@ -20,7 +20,13 @@ def create_graph_visualization(graph: Graph, title: str, filename: str):
     nx.draw_networkx_labels(G, pos)
 
     edge_labels = nx.get_edge_attributes(G, 'weight')
-    nx.draw_networkx_edge_labels(G, pos, edge_labels)
+    for (src, dst), label in edge_labels.items():
+        x_src, y_src = pos[src]
+        x_dst, y_dst = pos[dst]
+        x_label = (x_src + x_dst) / 2
+        y_label = (y_src + y_dst) / 2 + 0.04  
+
+        plt.text(x_label, y_label, str(label), fontsize=10, bbox=dict(facecolor='white', edgecolor='none', pad=1.0))
     nx.draw_networkx_edges(G, pos, edge_color='gray', arrowsize=20)
 
     plt.axis('off')
@@ -33,7 +39,7 @@ def visualize():
     graph1 = create_dijkstra_example()
     create_graph_visualization(
         graph1,
-        "Graph with Non-negative Weights (Dijkstra's Algorithm)",
+        "Graf z nieujemnymi wagami (Algorytm Dijkstry)",
         'dijkstra_graph.png',
     )
 
@@ -41,6 +47,6 @@ def visualize():
     graph2 = create_bellman_ford_example()
     create_graph_visualization(
         graph2,
-        'Graph with Negative Weights (Bellman-Ford Algorithm)',
+        'Gra z ujemnymi wagami (Algorytm Bellmana-Forda)',
         'bellman_ford_graph.png',
     )

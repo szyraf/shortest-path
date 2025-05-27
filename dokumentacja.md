@@ -4,35 +4,35 @@ Temat: **Problem najkrótszej ścieżki (z jednego miejsca)**
 
 Problem najkrótszej ścieżki z pojedynczego źródła (Single-Source Shortest Path - SSSP) polega na znalezieniu najkrótszych ścieżek z wybranego wierzchołka źródłowego do wszystkich pozostałych wierzchołków w grafie ważonym. Wagi krawędzi reprezentują odległości, koszty, czas lub inne metryki, które chcemy zminimalizować.
 
-W kontekście grafu ważonego G = (V, E), gdzie:
+Dla grafu ważonego G = (V, E), gdzie:
 
-- V to zbiór wierzchołków
-- E to zbiór krawędzi
-- Każda krawędź e ∈ E ma przypisaną wagę w(e)
+-   V to zbiór wierzchołków
+-   E to zbiór krawędzi
+-   Każda krawędź e ∈ E ma przypisaną wagę w(e)
 
-Celem jest znalezienie najkrótszej ścieżki p(s,v) dla każdego wierzchołka v ∈ V, gdzie s jest wierzchołkiem źródłowym. Ścieżka p(s,v) jest sekwencją krawędzi prowadzących od s do v o minimalnej sumie wag.
+Celem jest znalezienie najkrótszej ścieżki p(s,v) dla każdego wierzchołka v ∈ V, gdzie s jest wierzchołkiem źródłowym. Ścieżka p(s,v) jest sekwencją krawędzi prowadzących od s do v o jak najmniejszej sumie wag.
 
 # Omówienie różnych metod rozwiązania problemu
 
 ## Algorytm Dijkstry
 
-Algorytm Dijkstry jest efektywną metodą znajdowania najkrótszych ścieżek w grafach z nieujemnymi wagami krawędzi. Jego główne cechy:
+Algorytm Dijkstry jest efektywną metodą znajdowania najkrótszych ścieżek w grafach z nieujemnymi wagami krawędzi. Jego główne cechy to:
 
-- Złożoność czasowa: O((V + E) log V) przy użyciu kolejki priorytetowej
-- Wymaga, aby wszystkie wagi były nieujemne
-- Wykorzystuje strategię zachłanną
-- Gwarantuje znalezienie optymalnego rozwiązania dla grafów z nieujemnymi wagami
+-   Złożoność czasowa: O((V + E) log V) przy użyciu kolejki priorytetowej
+-   Wymóg tego, aby wszystkie wagi były nieujemne
+-   Zachłanność
+-   Gwarancja znalezienia optymalnego rozwiązania dla grafów z nieujemnymi wagami
 
 Algorytm działa poprzez iteracyjne wybieranie wierzchołka o najmniejszej tymczasowej odległości i relaksację jego krawędzi wychodzących.
 
 ## Algorytm Bellmana-Forda
 
-Algorytm Bellmana-Forda jest alternatywną metodą, która może pracować z ujemnymi wagami krawędzi:
+Algorytm Bellmana-Forda jest alternatywną metodą, która działa z ujemnymi wagami krawędzi. Jego główne cechy t:
 
-- Złożoność czasowa: O(V × E)
-- Może obsługiwać ujemne wagi krawędzi
-- Wykrywa ujemne cykle w grafie
-- Wolniejszy od algorytmu Dijkstry, ale bardziej uniwersalny
+-   Złożoność czasowa: O(V × E)
+-   Obsługa ujemnych wag krawędzi
+-   Wykrywanie ujemnych cykli w grafie
+-   Mniejsza prędkość, ale większa uniwersalność w porównaniu do algorytmu Dijkstry
 
 Algorytm wykonuje V-1 iteracji relaksacji wszystkich krawędzi, a następnie sprawdza występowanie ujemnych cykli.
 
@@ -42,27 +42,27 @@ Problem najkrótszej ścieżki ma wiele praktycznych zastosowań:
 
 1. Systemy nawigacji GPS
 
-   - Znajdowanie najkrótszej/najszybszej trasy między lokalizacjami
-   - Optymalizacja tras w czasie rzeczywistym
+    - Znajdowanie najkrótszej/najszybszej trasy między lokalizacjami
+    - Optymalizacja tras w czasie rzeczywistym
 
 2. Sieci komputerowe
 
-   - Routing pakietów w sieciach
-   - Optymalizacja opóźnień w komunikacji
+    - Routing pakietów w sieciach
+    - Optymalizacja opóźnień w komunikacji
 
 3. Logistyka i transport
 
-   - Planowanie tras dostaw
-   - Optymalizacja kosztów transportu
+    - Planowanie tras dostaw
+    - Optymalizacja kosztów transportu
 
 4. Media społecznościowe
 
-   - Znajdowanie połączeń między użytkownikami
-   - Analiza sieci społecznych
+    - Znajdowanie połączeń między użytkownikami
+    - Analiza sieci społecznych
 
 5. Gry komputerowe
-   - Pathfinding dla postaci
-   - Sztuczna inteligencja NPC
+    - Pathfinding dla postaci
+    - Sztuczna inteligencja NPC
 
 # Opis zastosowanych algorytmów
 
@@ -128,8 +128,8 @@ Program demonstruje działanie obu algorytmów na dwóch różnych przykładach:
 
 Wynik dla ścieżki 0 -> 4:
 
-- Najkrótsza ścieżka: 0 -> 2 -> 4
-- Całkowita odległość: 3
+-   Najkrótsza ścieżka: 0 -> 2 -> 5 -> 4
+-   Całkowita odległość: 7
 
 2. Graf z wagami ujemnymi (Bellman-Ford):
 
@@ -137,17 +137,21 @@ Wynik dla ścieżki 0 -> 4:
 
 Wynik dla ścieżki 0 -> 4
 
-- Najkrótsza ścieżka: 0 -> 1 -> 4
-- Całkowita odległość: 1
-
-Wynik pokazuje zdolność algorytmu Bellmana-Forda do pracy z ujemnymi wagami i wykrywania ujemnych cykli.
+-   Najkrótsza ścieżka: 0 -> 1 -> 2 -> 3 -> 4
+-   Całkowita odległość: 1
 
 # Podział zadań
 
-- **Szymon Rafałowski**:
-  - Implementacja algorytmu Dijkstry
-  - Implementacja algorytmu Bellmana-Forda
-  - Implementacja przykładów grafów
-  - Implementacja dokumentacji
-- **Aleks Rogoziński**:
-  - Dodaj tutaj
+-   **Szymon Rafałowski**:
+
+    -   Implementacja algorytmu Dijkstry
+    -   Implementacja algorytmu Bellmana-Forda
+    -   Implementacja funkcji generującej wizualizacje
+    -   Implementacja pseudokodów
+
+-   **Aleks Rogoziński**:
+
+    -   Dokumentacja: opis problemu, opisanie algorytmów, przykłady zastosowania
+    -   Implementacja grafu, funkcji main, przykładów grafów
+    -   Wsparcie w implementacji algorytmów
+    -   Poprawki w funkcji generującej wizualizacje
