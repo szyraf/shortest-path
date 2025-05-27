@@ -47,6 +47,6 @@ def visualize():
     graph2 = create_bellman_ford_example()
     create_graph_visualization(
         graph2,
-        'Gra z ujemnymi wagami (Algorytm Bellmana-Forda)',
+        'Graf z ujemnymi wagami (Algorytm Bellmana-Forda)',
         'bellman_ford_graph.png',
     )
