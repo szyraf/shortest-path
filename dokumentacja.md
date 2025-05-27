@@ -120,8 +120,6 @@ Algorithm BellmanFord(Graph, start):
 
 # Ilustracja działania programu
 
-Link do repozytorium z projektem: https://github.com/szyraf/shortest-path
-
 Program demonstruje działanie obu algorytmów na dwóch różnych przykładach:
 
 1. Graf z wagami nieujemnymi (Dijkstra):
@@ -157,3 +155,5 @@ Wynik dla ścieżki 0 -> 4
     -   Implementacja grafu, funkcji main, przykładów grafów
     -   Wsparcie w implementacji algorytmów
     -   Poprawki w funkcji generującej wizualizacje
+
+Link do repozytorium z projektem: https://github.com/szyraf/shortest-path
